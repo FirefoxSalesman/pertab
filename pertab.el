@@ -221,6 +221,7 @@
 (define-minor-mode pertab-mode
   "Adds per-tab layout management, similar to dwm's pertag patch."
   :global t
+  :keymap (let ((map (make-sparse-keymap))) map)
   (if pertab-mode
       (progn
 	(advice-add 'tab-bar-select-tab :before 'pertab--exit-layout)

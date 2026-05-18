@@ -8,7 +8,21 @@ Add this to your init.el
 #+begin_src emacs-lisp
 (use-package pertab
   :hook (tab-bar-mode . pertab-mode)
-  :custom pertab-default-layout 'manual)
+  :custom pertab-default-layout 'manual
+  :bind (:map pertab-mode-map
+	      ("s-h" . pertab-focus-left)
+	      ("s-j" . pertab-focus-down)
+	      ("s-k" . pertab-focus-up)
+	      ("s-l" . pertab-focus-right)
+	      ("s-H" . pertab-move-left)
+	      ("s-J" . pertab-move-down)
+	      ("s-K" . pertab-move-up)
+	      ("s-L" . pertab-move-right)
+	      ("s-c" . pertab-horizontal-split)
+	      ("s-v" . pertab-vertical-split)
+	      ("s-q" . pertab-close-window)
+	      ("s-Q" . pertab-kill-buffer-close-window)
+	      ("s-y" . pertab-layout-menu)))
 
 (use-package pertab-monocle) ;; If you want the monocle layout.
 (use-package pertab-follow) ;; If you want the follow layout.
