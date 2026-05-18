@@ -8,11 +8,12 @@ Add this to your init.el
 #+begin_src emacs-lisp
 (use-package pertab
   :hook (tab-bar-mode . pertab-mode)
-  :custom pertab-default-layout 'master-stack)
+  :custom pertab-default-layout 'manual)
 
 (use-package pertab-monocle) ;; If you want the monocle layout.
 (use-package pertab-follow) ;; If you want the follow layout.
 (use-package pertab-master-stack) ;; If you want either of the master/stack layouts
+(use-package pertab-manual) ;; Highly reccomended
 #+end_src
 
 * Configuration Variables
@@ -26,6 +27,7 @@ Each layout provides its own entry & exit hooks. These run when switching tabs, 
 + follow: Puts the focused window into follow mode, removes all other windows, & splits it evenly down the screen. The window can be split more times if need be.
 + master-stack: A tiling layout similar to what you'd see in dwm. Needs [[https://github.com/Fuco1/elwm][elwm]] in order to work
 + master-stack-horizontal: Like master stack, but the master is on the bottom of the screen & the stack is on the top. Needs [[https://github.com/Fuco1/elwm][elwm]] in order to work.
++ manual: A manual tiling window layout, like what is usually used in emacs
 
 * Registering Layouts
 To register a new layout, call =pertab-register-layout=. It takes 3 arguments.
@@ -33,26 +35,7 @@ To register a new layout, call =pertab-register-layout=. It takes 3 arguments.
 2. An alist of tab-local variables that the layout needs, with their default values.
 3. A =pertab-layout-manager= object.
 
-** Examples
-A normal, manual tiling layout (like one might be used to in emacs)
-#+begin_src emacs-lisp
-(pertab-register-layout 'manual '()
-			(pertab-layout-manager :lighter "[+]"
-					       :enter-fun 'pertab-manual-enter
-					       :exit-fun 'pertab-manual-exit
-					       :horiz-split-fun 'split-window-horizontally
-					       :vert-split-fun 'split-window-vertically
-					       :focus-left-fun 'windmove-left
-					       :focus-right-fun 'windmove-right
-					       :focus-down-fun 'windmove-down
-					       :focus-up-fun 'windmove-up
-					       :move-left-fun 'windmove-swap-states-left
-					       :move-right-fun 'windmove-swap-states-right
-					       :move-down-fun 'windmove-swap-states-down
-					       :move-up-fun 'windmove-swap-states-up
-					       :close-window-fun 'delete-window))
-#+end_src
-
+** Example
 A scrolling layout, using [[https://github.com/finalclass/emacs-roll][roll]]
 #+begin_src emacs-lisp
 (pertab-register-layout 'scroll '((roll-max-visible-panes . 2)
