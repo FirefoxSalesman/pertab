@@ -51,10 +51,13 @@
 
 (defun pertab-master-stack-remove-window ()
   "Close the current window."
-  (when (elwm--in-master-area-p)
-    (elwm-rotate-window 1)
-    (elwm-activate-window))
-  (delete-window))
+  (let ((in-master-area (elwm--in-master-area-p)))
+    (when in-master-area
+      (elwm-rotate-window 1)
+      (elwm-activate-window))
+    (delete-window)
+    (when in-master-area
+      (elwm-derotate-window))))
 
 (pertab-register-layout 'master-stack '((elwm-current-layout . 'tile-vertical-left))
 			(pertab-layout-manager :lighter "[]="
