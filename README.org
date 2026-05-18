@@ -8,9 +8,11 @@ Add this to your init.el
 #+begin_src emacs-lisp
 (use-package pertab
   :hook (tab-bar-mode . pertab-mode)
-  :custom pertab-default-layout 'monocle)
+  :custom pertab-default-layout 'master-stack)
 
 (use-package pertab-monocle) ;; If you want the monocle layout.
+(use-package pertab-follow) ;; If you want the follow layout.
+(use-package pertab-master-stack) ;; If you want either of the master/stack layouts
 #+end_src
 
 * Configuration Variables
@@ -22,6 +24,8 @@ Add this to your init.el
 Each layout provides its own entry & exit hooks. These run when switching tabs, or switching layouts.
 + monocle: 1 window is visible at a time. Restores the former window state after exiting.
 + follow: Puts the focused window into follow mode, removes all other windows, & splits it evenly down the screen. The window can be split more times if need be.
++ master-stack: A tiling layout similar to what you'd see in dwm. Needs [[https://github.com/Fuco1/elwm][elwm]] in order to work
++ master-stack-horizontal: Like master stack, but the master is on the bottom of the screen & the stack is on the top. Needs [[https://github.com/Fuco1/elwm][elwm]] in order to work.
 
 * Registering Layouts
 To register a new layout, call =pertab-register-layout=. It takes 3 arguments.
