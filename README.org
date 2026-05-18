@@ -10,7 +10,7 @@ Add this to your init.el
   :hook (tab-bar-mode . pertab-mode)
   :custom pertab-default-layout 'monocle)
 
-(use-package pertab-monocle)
+(use-package pertab-monocle) ;; If you want the monocle layout.
 #+end_src
 
 * Configuration Variables
@@ -19,7 +19,9 @@ Add this to your init.el
 + =pertab-previous-buffer-function=- The function to call when trying to focus a new window upwards or to the left on a tab with only 1 window. Defaults to =previous-buffer=.
 
 * Layouts
+Each layout provides its own entry & exit hooks. These run when switching tabs, or switching layouts.
 + monocle: 1 window is visible at a time. Restores the former window state after exiting.
++ follow: Puts the focused window into follow mode, removes all other windows, & splits it evenly down the screen. The window can be split more times if need be.
 
 * Registering Layouts
 To register a new layout, call =pertab-register-layout=. It takes 3 arguments.
@@ -31,20 +33,20 @@ To register a new layout, call =pertab-register-layout=. It takes 3 arguments.
 A normal, manual tiling layout (like one might be used to in emacs)
 #+begin_src emacs-lisp
 (pertab-register-layout 'manual '()
-			  (pertab-layout-manager :lighter "[+]"
-						 :enter-fun 'pertab-manual-enter
-						 :exit-fun 'pertab-manual-exit
-						 :horiz-split-fun 'split-window-horizontally
-						 :vert-split-fun 'split-window-vertically
-						 :focus-left-fun 'windmove-left
-						 :focus-right-fun 'windmove-right
-						 :focus-down-fun 'windmove-down
-						 :focus-up-fun 'windmove-up
-						 :move-left-fun 'windmove-swap-states-left
-						 :move-right-fun 'windmove-swap-states-right
-						 :move-down-fun 'windmove-swap-states-down
-						 :move-up-fun 'windmove-swap-states-up
-						 :close-window-fun 'delete-window))
+			(pertab-layout-manager :lighter "[+]"
+					       :enter-fun 'pertab-manual-enter
+					       :exit-fun 'pertab-manual-exit
+					       :horiz-split-fun 'split-window-horizontally
+					       :vert-split-fun 'split-window-vertically
+					       :focus-left-fun 'windmove-left
+					       :focus-right-fun 'windmove-right
+					       :focus-down-fun 'windmove-down
+					       :focus-up-fun 'windmove-up
+					       :move-left-fun 'windmove-swap-states-left
+					       :move-right-fun 'windmove-swap-states-right
+					       :move-down-fun 'windmove-swap-states-down
+					       :move-up-fun 'windmove-swap-states-up
+					       :close-window-fun 'delete-window))
 #+end_src
 
 A scrolling layout, using [[https://github.com/finalclass/emacs-roll][roll]]
