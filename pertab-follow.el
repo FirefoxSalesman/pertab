@@ -15,6 +15,7 @@
   (delete-other-windows)
   (follow-mode +1)
   (dotimes (i pertab-follow--splits) (split-window-horizontally))
+  (balance-windows)
   (run-hooks 'pertab-follow-enter-hook))
 
 (defun pertab-follow-exit ()
