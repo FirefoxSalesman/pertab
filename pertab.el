@@ -242,7 +242,7 @@
 (defun pertab-layout-menu ()
   "Select a new layout with 'completing-read'."
   (interactive)
-  (pertab--set-layout (intern (completing-read "Selecta a layout: " pertab--layout-registry))))
+  (pertab--set-layout (intern (completing-read "Select a layout: " pertab--layout-registry))))
 
 (provide 'pertab)
 ;;; pertab.el ends here

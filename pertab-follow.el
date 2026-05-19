@@ -27,13 +27,15 @@
   "Close the current window."
   (setq pertab-follow--splits (max 0 (- pertab-follow--splits 1)))
   (pertab-set-tab-local 'pertab-follow--splits pertab-follow--splits)
-  (delete-window))
+  (delete-window)
+  (balance-windows))
 
 (defun pertab-follow-split ()
   "Split the current window."
   (setq pertab-follow--splits (+ 1 pertab-follow--splits))
   (pertab-set-tab-local 'pertab-follow--splits pertab-follow--splits)
-  (split-window-horizontally))
+  (split-window-horizontally)
+  (balance-windows))
 
 (pertab-register-layout 'follow '((pertab-follow--splits . 1)) (pertab-layout-manager :lighter "|||"
 										      :enter-fun 'pertab-follow-enter
