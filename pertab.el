@@ -226,10 +226,14 @@
       (progn
 	(advice-add 'tab-bar-select-tab :before 'pertab--exit-layout)
 	(advice-add 'tab-bar-new-tab-to :before 'pertab--exit-layout)
+	(advice-add 'other-frame :before 'pertab--exit-layout)
+	(advice-add 'other-frame :after 'pertab--after-switch-to-tab)
 	(add-hook 'tab-bar-tab-post-select-functions 'pertab--after-switch-to-tab)
 	(add-hook 'tab-bar-tab-post-open-functions 'pertab--after-switch-to-tab))
     (advice-remove 'tab-bar-select-tab 'pertab--exit-layout)
     (advice-remove 'tab-bar-new-tab-to 'pertab--exit-layout)
+    (advice-remove 'other-frame 'pertab--exit-layout)
+    (advice-remove 'other-frame 'pertab--after-switch-to-tab)
     (remove-hook 'tab-bar-tab-post-select-functions 'pertab--after-switch-to-tab)
     (remove-hook 'tab-bar-tab-post-open-functions 'pertab--after-switch-to-tab)))
 
