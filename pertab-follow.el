@@ -38,11 +38,23 @@
   (split-window-horizontally)
   (balance-windows))
 
+(defun pertab-follow-left ()
+  "Move one window to the left, or if we are on the leftmost window, scroll up."
+  (if (windmove-find-other-window 'left)
+      (windmove-left)
+    (scroll-down nil)))
+
+(defun pertab-follow-right ()
+  "Move one window to the down, or if we are on the rightmost window, scroll down."
+  (if (windmove-find-other-window 'right)
+      (windmove-right)
+    (scroll-up nil)))
+
 (pertab-register-layout 'follow '((pertab-follow--splits . 1)) (pertab-layout-manager :lighter "|||"
 										      :enter-fun 'pertab-follow-enter
 										      :exit-fun 'pertab-follow-exit
-										      :focus-left-fun 'windmove-left
-										      :focus-right-fun 'windmove-right
+										      :focus-left-fun 'pertab-follow-left
+										      :focus-right-fun 'pertab-follow-right
 										      :close-window-fun 'pertab-follow-close
 										      :horiz-split-fun 'pertab-follow-split
 										      :vert-split-fun 'pertab-follow-split))
