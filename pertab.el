@@ -54,12 +54,12 @@
   ((enter-fun :initarg :enter-fun
 	      :type function
 	      :custom function
-	      :initform (lambda ())
+	      :initform (lambda (&optional reason))
 	      :documentation "The function to run when entering the layout.")
    (exit-fun :initarg :exit-fun
 	     :type function
 	     :custom function
-	     :initform (lambda ())
+	     :initform (lambda (&optional reason))
 	     :documentation "The function to run when exiting the layout.")
    (horiz-split-fun :initarg :horiz-split-fun
 		    :type function
@@ -132,9 +132,10 @@
   "Return the current layout's lighter."
   (oref (pertab--get-current-layout) lighter))
 
-(defun pertab--do-window-management-action (action)
-  "Run the function in the current layout stored in the field of 'pertab-layout-manager' named ACTION."
-  (funcall (eieio-oref (pertab--get-current-layout) action)))
+(defun pertab--do-window-management-action (action &rest args)
+  "Run the function in the current layout stored in the field of 'pertab-layout-manager' named ACTION.
+   ARGS is passed to the function."
+  (apply 'funcall (eieio-oref (pertab--get-current-layout) action) args))
 
 (defun pertab-horizontal-split ()
   "Split the current window horizontally, according to the current layout's rules."
@@ -205,13 +206,15 @@
   (kill-current-buffer)
   (pertab-close-window))
 
-(defun pertab--enter-layout ()
-  "Run the current layout's entry function."
-  (pertab--do-window-management-action 'enter-fun))
+(defun pertab--enter-layout (&optional reason)
+  "Run the current layout's entry function.
+REASON is the reason for calling this function."
+  (pertab--do-window-management-action 'enter-fun reason))
 
-(defun pertab--exit-layout (&rest args)
-  "Run the current layout's exit function. Ignores ARGS."
-  (pertab--do-window-management-action 'exit-fun))
+(defun pertab--exit-layout (&optional reason &rest args)
+  "Run the current layout's exit function. Ignore ARGS.
+REASON is the reason for calling this function."
+  (pertab--do-window-management-action 'exit-fun reason))
 
 (defun pertab--after-switch-to-tab (&rest args)
   "Meant to be run in 'tab-bar-select-tab' & 'tab-bar-new-tab-to's hooks. Ignores ARGS."
@@ -239,9 +242,9 @@
 
 (defun pertab--set-layout (layout)
   "Set the current tab's layout to LAYOUT."
-  (pertab--exit-layout)
+  (pertab--exit-layout 'user)
   (pertab--set-tab-parameter 'pertab-layout (tab-bar--current-tab-find) layout)
-  (pertab--enter-layout))
+  (pertab--enter-layout 'user))
 
 (defun pertab-layout-menu ()
   "Select a new layout with 'completing-read'."

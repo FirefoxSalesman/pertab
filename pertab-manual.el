@@ -22,12 +22,12 @@
 (defvar pertab-manual-enter-hook nil "Hook run when entering manual layout.")
 (defvar pertab-manual-exit-hook nil "Hook run when exiting manual layout.")
 
-(defun pertab-manual-enter ()
-  "Set up the manual layout."
+(defun pertab-manual-enter (&optional reason)
+  "Set up the manual layout. REASON is the reason for entering the layout."
   (run-hooks 'pertab-manual-stack-enter-hook))
 
-(defun pertab-manual-exit ()
-  "Tear down the manual layout."
+(defun pertab-manual-exit (&optional reason)
+  "Tear down the manual layout. REASON is the reason for entering the layout."
   (run-hooks 'pertab-manual-stack-exit-hook))
 
 (pertab-register-layout 'manual '()

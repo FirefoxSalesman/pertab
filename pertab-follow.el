@@ -9,19 +9,23 @@
 (defvar pertab-follow-enter-hook nil "Hook run when entering follow layout.")
 (defvar pertab-follow-exit-hook nil "Hook run when exiting follow layout.")
 
-(defun pertab-follow-enter ()
-  "Sets up the follow layout."
-  (setq pertab-follow--old-window-state (current-window-configuration))
-  (delete-other-windows)
+(defun pertab-follow-enter (&optional reason)
+  "Set up the follow layout. REASON is the reason for entering the layout."
   (follow-mode +1)
-  (dotimes (i pertab-follow--splits) (split-window-horizontally))
-  (balance-windows)
+  (when (eq reason 'user)
+    (setq pertab-follow--old-window-state (current-window-configuration))
+    (delete-other-windows)
+    (dotimes (i pertab-follow--splits) (split-window-horizontally))
+    (balance-windows))
+  (pertab-set-tab-local 'pertab-follow--old-window-state pertab-follow--old-window-state)
   (run-hooks 'pertab-follow-enter-hook))
 
-(defun pertab-follow-exit ()
-  "Tears down follow layout."
+(defun pertab-follow-exit (&optional reason)
+  "Tears down follow layout. REASON is the reason for entering the layout."
   (follow-mode -1)
-  (set-window-configuration pertab-follow--old-window-state)
+  (when (eq reason 'user)
+    (set-window-configuration pertab-follow--old-window-state))
+  (pertab-set-tab-local 'pertab-follow--old-window-state pertab-follow--old-window-state)
   (run-hooks 'pertab-follow-exit-hook))
 
 (defun pertab-follow-close ()
@@ -50,7 +54,8 @@
       (windmove-right)
     (scroll-up nil)))
 
-(pertab-register-layout 'follow '((pertab-follow--splits . 1)) (pertab-layout-manager :lighter "|||"
+(pertab-register-layout 'follow '((pertab-follow--splits . 1)
+				  (pertab-follow--old-window-state . ())) (pertab-layout-manager :lighter "|||"
 										      :enter-fun 'pertab-follow-enter
 										      :exit-fun 'pertab-follow-exit
 										      :focus-left-fun 'pertab-follow-left
