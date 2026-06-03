@@ -28,6 +28,7 @@ Add this to your init.el
 (use-package pertab-follow) ;; If you want the follow layout.
 (use-package pertab-master-stack) ;; If you want either of the master/stack layouts
 (use-package pertab-manual) ;; Highly reccomended
+(use-package pertab-scroll) ;; For a scrolling layout. Requires roll.el
 #+end_src
 
 * Configuration Variables
@@ -42,6 +43,7 @@ Each layout provides its own entry & exit hooks. These run when switching tabs, 
 + master-stack: A tiling layout similar to what you'd see in dwm. Needs [[https://github.com/Fuco1/elwm][elwm]] in order to work
 + master-stack-horizontal: Like master stack, but the master is on the bottom of the screen & the stack is on the top. Needs [[https://github.com/Fuco1/elwm][elwm]] in order to work.
 + manual: A manual tiling window layout, like what is usually used in emacs
++ scroll: A scrolling, layout, like niri. Requires [[https://github.com/finalclass/emacs-roll][roll]], which provides all the important logic.
 
 * Registering Layouts
 To register a new layout, call =pertab-register-layout=. It takes 3 arguments.

@@ -74,13 +74,13 @@
 (defvar pertab-master-stack-horizontal-enter-hook nil "Hook run when entering horizontal master/stack layout.")
 (defvar pertab-master-stack-horizontal-exit-hook nil "Hook run when exiting horizontal master/stack layout.")
 
-(defun pertab-master-stack-horizontal-enter ()
+(defun pertab-master-stack-horizontal-enter (&optional reason)
   "Set up the horizontal master/stack layout."
   (setq elwm-current-layout 'tile-horizontal-top)
   (pertab-set-tab-local 'elwm-current-layout 'tile-horizontal-top)
   (run-hooks 'pertab-master-stack-horizontal-enter-hook))
 
-(defun pertab-master-stack-horizontal-exit ()
+(defun pertab-master-stack-horizontal-exit (&optional reason)
   "Tear down the horizontal master/stack layout."
   (run-hooks 'pertab-master-stack-horizontal-exit-hook))
 
