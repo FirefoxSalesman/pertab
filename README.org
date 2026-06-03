@@ -38,12 +38,57 @@ Add this to your init.el
 
 * Layouts
 Each layout provides its own entry & exit hooks. These run when switching tabs, or switching layouts.
-+ monocle: 1 window is visible at a time.
-+ follow: Puts the focused window into follow mode, removes all other windows, & splits it evenly down the screen. The window can be split more times if need be.
-+ master-stack: A tiling layout similar to what you'd see in dwm. Needs [[https://github.com/Fuco1/elwm][elwm]] in order to work
-+ master-stack-horizontal: Like master stack, but the master is on the bottom of the screen & the stack is on the top. Needs [[https://github.com/Fuco1/elwm][elwm]] in order to work.
-+ manual: A manual tiling window layout, like what is usually used in emacs
-+ scroll: A scrolling, layout, like niri. Requires [[https://github.com/finalclass/emacs-roll][roll]], which provides all the important logic.
+** Monocle
++ 1 window is visible at a time. (As seen in dwm).
++ Window navigation commands will always run their next/previous buffer functions
++ Your previous window configuration will be restored after exiting the monocle layout.
++ This module comes from [[https://github.com/dakra/dmacs][Dmacs]].
+| Entry Hook                | Exit Hook                | Entry Command      |
+|---------------------------+--------------------------+--------------------|
+| pertab-monocle-enter-hook | pertab-monocle-exit-hook | pertab-set-monocle |
+
+** Follow
++ A scrolling layout on the focused buffer using follow-mode. Closes all other windows upon entry & restores them upon exit.
++ Any split command will split the focused buffer horizontally.
++ Moving left will focus the window to the left, or scroll the buffer up a page if the leftmost window is focused.
++ Moving right will focus the window to the right, or scroll the buffer up a page if the rightmost window is focused.
+| Entry Hook               | Exit Hook               | Entry Command     |
+|--------------------------+-------------------------+-------------------|
+| pertab-follow-enter-hook | pertab-follow-exit-hook | pertab-set-follow |
+
+** Master/Stack
++ As seen in dwm.
++ Needs [[https://github.com/Fuco1/elwm][elwm]] in order to work.
++ Focusing up or down will move to the previous/next window
++ Splitting the current window will create a new window on the stack.
++ Moving the current window up/down will rotate the windows counterclockwise/clockwise
+| Entry Hook                     | Exit Hook                     | Entry Command           |
+|--------------------------------+-------------------------------+-------------------------|
+| pertab-master-stack-enter-hook | pertab-master-stack-exit-hook | pertab-set-master-stack |
+
+** Master/Stack Horizontal
++ Like master stack, but the master is on the bottom of the screen & the stack is on the top.
++ Needs [[https://github.com/Fuco1/elwm][elwm]] in order to work.
+| Entry Hook                                | Exit Hook                                | Entry Command                      |
+|-------------------------------------------+------------------------------------------+------------------------------------|
+| pertab-master-stack-horizontal-enter-hook | pertab-master-stack-horizontal-exit-hook | pertab-set-master-stack-horizontal |
+
+** Manual
++ A manual tiling window layout, like what is usually used in emacs.
++ Each command should do exactly what it says on the tin.
+| Entry Hook               | Exit Hook               | Entry Command     |
+|--------------------------+-------------------------+-------------------|
+| pertab-manual-enter-hook | pertab-manual-exit-hook | pertab-set-manual |
+
+** Scroll
++ A scrolling layout, like niri.
++ Requires [[https://github.com/finalclass/emacs-roll][roll]], which provides all the important logic.
++ Splitting the window creates a new roll pane.
++ Focusing the window to the left or right scrolls in that direction
++ Moving the current window to the left or right does exactly what you would expect.
+| Entry Hook               | Exit Hook               | Entry Command     |
+|--------------------------+-------------------------+-------------------|
+| pertab-scroll-enter-hook | pertab-scroll-exit-hook | pertab-set-scroll |
 
 * Registering Layouts
 To register a new layout, call =pertab-register-layout=. It takes 3 arguments.

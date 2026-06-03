@@ -71,6 +71,11 @@
 					       :move-up-fun 'pertab-master-stack-derotate
 					       :close-window-fun 'pertab-master-stack-remove-window))
 
+(defun pertab-set-master-stack ()
+  "Set the current layout to master stack."
+  (interactive)
+  (pertab--set-layout 'master-stack))
+
 (defvar pertab-master-stack-horizontal-enter-hook nil "Hook run when entering horizontal master/stack layout.")
 (defvar pertab-master-stack-horizontal-exit-hook nil "Hook run when exiting horizontal master/stack layout.")
 
@@ -95,6 +100,10 @@
 					       :move-down-fun 'pertab-rotate-windows
 					       :move-up-fun 'pertab-master-stack-derotate
 					       :close-window-fun 'pertab-master-stack-remove-window))
+(defun pertab-set-master-stack-horizontal ()
+  "Set the current layout to horizontal master stack."
+  (interactive)
+  (pertab--set-layout 'master-stack-horizontal))
 
 (provide 'pertab-master-stack)
 ;;; pertab-master-stack.el ends here

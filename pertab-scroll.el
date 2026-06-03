@@ -69,6 +69,10 @@
 					       :move-right-fun 'roll-move-right
 					       :close-window-fun 'roll-close))
 
+(defun pertab-set-scroll ()
+  "Set the current layout to scroll."
+  (interactive)
+  (pertab--set-layout 'scroll))
 
 (provide 'pertab-scroll)
 ;;; pertab-scroll.el ends here

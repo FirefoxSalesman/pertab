@@ -45,6 +45,10 @@
 					       :move-down-fun 'windmove-swap-states-down
 					       :move-up-fun 'windmove-swap-states-up
 					       :close-window-fun 'delete-window))
+(defun pertab-set-manual ()
+  "Set the current layout to manual."
+  (interactive)
+  (pertab--set-layout 'manual))
 
 (provide 'pertab-manual)
 ;;; pertab-manual.el ends here

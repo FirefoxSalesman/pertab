@@ -26,5 +26,11 @@
 (pertab-register-layout 'monocle '((pertab-monocle--old-window-state . ())) (pertab-layout-manager :lighter "[M]"
 							    :enter-fun 'pertab-monocle-enter
 							    :exit-fun 'pertab-monocle-exit))
+
+(defun pertab-set-monocle ()
+  "Set the current layout to monocle."
+  (interactive)
+  (pertab--set-layout 'monocle))
+
 (provide 'pertab-monocle)
 ;;; pertab-monocle.el ends here

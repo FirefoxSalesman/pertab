@@ -63,5 +63,11 @@
 										      :close-window-fun 'pertab-follow-close
 										      :horiz-split-fun 'pertab-follow-split
 										      :vert-split-fun 'pertab-follow-split))
+
+(defun pertab-set-follow ()
+  "Set the current layout to follow."
+  (interactive)
+  (pertab--set-layout 'follow))
+
 (provide 'pertab-follow)
 ;;; pertab-follow.el ends here
